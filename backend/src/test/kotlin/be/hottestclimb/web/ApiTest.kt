@@ -59,13 +59,13 @@ class ApiTest {
 
     @Test
     fun `returns the leaderboard`() = apiTest { client ->
-        every { service.leaderboard(10) } returns
-            Leaderboard(listOf(LeaderboardRow(1, "Bea", 130)), grandTotal = 130, climberCount = 1)
+        every { service.leaderboard() } returns
+            Leaderboard(listOf(LeaderboardRow(1, listOf("Bea", "Jef"), 130)), grandTotal = 260, climberCount = 2)
 
         val response = client.get("/api/leaderboard")
 
         response.body<LeaderboardResponse>() shouldBe
-            LeaderboardResponse(listOf(LeaderboardRowResponse(1, "Bea", 130)), 130, 1)
+            LeaderboardResponse(listOf(LeaderboardRowResponse(1, listOf("Bea", "Jef"), 130)), 260, 2)
     }
 
     @Test

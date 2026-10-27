@@ -125,7 +125,7 @@ class ClimbServiceTest {
     }
 
     @Test
-    fun `leaderboard ranks by meters with shared rank on ties and sums the grand total`() {
+    fun `leaderboard ranks everyone by meters with tied climbers sharing one row and sums the grand total`() {
         every { entries.totals() } returns listOf(
             ClimberTotal("Bea", 300),
             ClimberTotal("Adam", 450),
@@ -133,12 +133,12 @@ class ClimbServiceTest {
             ClimberTotal("Dirk", 80),
         )
 
-        val board = service.leaderboard(limit = 3)
+        val board = service.leaderboard()
 
         board.rows shouldContainExactly listOf(
-            LeaderboardRow(1, "Adam", 450),
-            LeaderboardRow(2, "Bea", 300),
-            LeaderboardRow(2, "Chris", 300),
+            LeaderboardRow(1, listOf("Adam"), 450),
+            LeaderboardRow(2, listOf("Bea", "Chris"), 300),
+            LeaderboardRow(4, listOf("Dirk"), 80),
         )
         board.grandTotal shouldBe 1130
         board.climberCount shouldBe 4

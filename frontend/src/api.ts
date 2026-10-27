@@ -1,6 +1,6 @@
 export interface LeaderboardRow {
   rank: number
-  name: string
+  names: string[]
   meters: number
 }
 

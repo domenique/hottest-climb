@@ -26,8 +26,6 @@ import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.withContext
 import kotlin.time.Duration.Companion.minutes
 
-private const val LEADERBOARD_SIZE = 10
-
 fun Application.api(service: ClimbService) {
     install(ContentNegotiation) { json() }
     install(StatusPages) {
@@ -65,7 +63,7 @@ fun Application.api(service: ClimbService) {
                     call.respond(LogClimbResponse(request.name.trim(), total))
                 }
                 get("/leaderboard") {
-                    val board = withContext(Dispatchers.IO) { service.leaderboard(LEADERBOARD_SIZE) }
+                    val board = withContext(Dispatchers.IO) { service.leaderboard() }
                     call.respond(board.toResponse())
                 }
             }

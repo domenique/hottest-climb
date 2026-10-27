@@ -29,14 +29,13 @@ class ClimbService(
         return entries.totalFor(climber.id)
     }
 
-    fun leaderboard(limit: Int): Leaderboard {
+    fun leaderboard(): Leaderboard {
         val totals = entries.totals().sortedWith(compareByDescending<ClimberTotal> { it.meters }.thenBy { it.name })
-        var rank = 0
-        val rows = totals.mapIndexed { index, total ->
-            if (index == 0 || totals[index - 1].meters != total.meters) rank = index + 1
-            LeaderboardRow(rank, total.name, total.meters)
+        var climbersAhead = 0
+        val rows = totals.groupBy { it.meters }.map { (meters, tied) ->
+            LeaderboardRow(climbersAhead + 1, tied.map { it.name }, meters).also { climbersAhead += tied.size }
         }
-        return Leaderboard(rows.take(limit), totals.sumOf { it.meters }, totals.size)
+        return Leaderboard(rows, totals.sumOf { it.meters }, totals.size)
     }
 
     private fun authenticate(name: String, pin: String): Climber {

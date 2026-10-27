@@ -12,7 +12,7 @@ data class ClimbEntry(val id: UUID, val climberId: ClimberId, val meters: Int, v
 
 data class ClimberTotal(val name: String, val meters: Int)
 
-data class LeaderboardRow(val rank: Int, val name: String, val meters: Int)
+data class LeaderboardRow(val rank: Int, val names: List<String>, val meters: Int)
 
 data class Leaderboard(val rows: List<LeaderboardRow>, val grandTotal: Int, val climberCount: Int)
 

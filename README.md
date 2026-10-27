@@ -26,6 +26,32 @@ java -jar backend/build/libs/hottest-climb-all.jar
 The backend bundles `frontend/dist` into the jar and serves it, so it is one artifact.
 Configure with `PORT`, `DATABASE_URL`, `DATABASE_USER`, `DATABASE_PASSWORD`.
 
+### Container
+
+The `Dockerfile` builds frontend and backend and produces a runnable image (tests are not run in the build):
+
+```sh
+podman build -t hottest-climb .
+podman run -p 8080:8080 -e DATABASE_URL=jdbc:postgresql://host.containers.internal:5432/hottestclimb hottest-climb
+```
+
+On Railway, add a Postgres service and set on the app service:
+
+```
+DATABASE_URL=jdbc:postgresql://${{Postgres.PGHOST}}:${{Postgres.PGPORT}}/${{Postgres.PGDATABASE}}
+DATABASE_USER=${{Postgres.PGUSER}}
+DATABASE_PASSWORD=${{Postgres.PGPASSWORD}}
+```
+
+Run a single instance: the wrong-pin lockout is kept in memory.
+
+The bar screen shows a QR code to the registration page. It points at the screen's own origin, which is
+wrong if the monitor opens the app via `localhost`; build with the address phones should use instead:
+
+```sh
+VITE_PUBLIC_URL=https://climb.example.be npm run build
+```
+
 ## Rules
 
 - A single entry is 1–500 m; names are 2–30 characters and unique regardless of case.
