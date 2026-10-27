@@ -1,0 +1,11 @@
+ktor:
+  deployment:
+    port: "$PORT:8080"
+  application:
+    modules:
+      - be.hottestclimb.ApplicationKt.module
+
+database:
+  url: "$DATABASE_URL:jdbc:postgresql://localhost:5432/hottestclimb"
+  user: "$DATABASE_USER:hottestclimb"
+  password: "$DATABASE_PASSWORD:hottestclimb"
