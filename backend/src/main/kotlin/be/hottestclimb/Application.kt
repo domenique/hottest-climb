@@ -14,10 +14,10 @@ import java.time.Clock
 fun Application.module() {
     val config = environment.config
     val db = Databases.connect(
-        DatabaseConfig(
-            jdbcUrl = config.property("database.url").getString(),
-            user = config.property("database.user").getString(),
-            password = config.property("database.password").getString(),
+        DatabaseConfig.from(
+            url = config.property("database.url").getString(),
+            user = config.propertyOrNull("database.user")?.getString(),
+            password = config.propertyOrNull("database.password")?.getString(),
         )
     )
     val service = ClimbService(

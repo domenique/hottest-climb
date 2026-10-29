@@ -6,6 +6,8 @@ ktor:
       - be.hottestclimb.ApplicationKt.module
 
 database:
-  url: "$DATABASE_URL:jdbc:postgresql://localhost:5432/hottestclimb"
-  user: "$DATABASE_USER:hottestclimb"
-  password: "$DATABASE_PASSWORD:hottestclimb"
+  # Either a jdbc: url or a postgres://user:password@host/db connection string (Render, Heroku).
+  url: "$DATABASE_URL:postgresql://hottestclimb:hottestclimb@localhost:5432/hottestclimb"
+  # Only needed when the url carries no credentials.
+  user: "$?DATABASE_USER"
+  password: "$?DATABASE_PASSWORD"

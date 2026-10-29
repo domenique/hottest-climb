@@ -35,6 +35,10 @@ podman build -t hottest-climb .
 podman run -p 8080:8080 -e DATABASE_URL=jdbc:postgresql://host.containers.internal:5432/hottestclimb hottest-climb
 ```
 
+`DATABASE_URL` accepts a `jdbc:` url or a `postgresql://user:password@host/db` connection string. On Render, set it to
+the database's **Internal Database URL** and nothing else. `DATABASE_USER`/`DATABASE_PASSWORD` are only used when the
+url carries no credentials.
+
 On Railway, add a Postgres service and set on the app service:
 
 ```
