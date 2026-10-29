@@ -67,7 +67,7 @@ async function submit() {
       <h1 class="text-4xl font-black tracking-tight">
         Klimmen voor <span class="text-ember-500">de warmste week</span>
       </h1>
-      <p class="mt-2 text-ember-50/70">Elke meter telt! Laten we samen top van de K2 bereiken!</p>
+      <p class="mt-2 text-ember-50/70">Elke meter telt! Laten we samen de top van de K2 bereiken!</p>
 
       <div class="mt-8 grid grid-cols-2 rounded-xl bg-night-800 p-1 text-sm font-semibold">
         <button
