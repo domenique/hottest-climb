@@ -60,12 +60,18 @@ class ApiTest {
     @Test
     fun `returns the leaderboard`() = apiTest { client ->
         every { service.leaderboard() } returns
-            Leaderboard(listOf(LeaderboardRow(1, listOf("Bea", "Jef"), 130)), grandTotal = 260, climberCount = 2)
+            Leaderboard(
+                listOf(LeaderboardRow(1, listOf("Bea", "Jef"), 130)),
+                grandTotal = 260,
+                climberCount = 2,
+                raisedEuros = 20,
+                pendingEuros = 5,
+            )
 
         val response = client.get("/api/leaderboard")
 
         response.body<LeaderboardResponse>() shouldBe
-            LeaderboardResponse(listOf(LeaderboardRowResponse(1, listOf("Bea", "Jef"), 130)), 260, 2)
+            LeaderboardResponse(listOf(LeaderboardRowResponse(1, listOf("Bea", "Jef"), 130)), 260, 2, 20, 5)
     }
 
     @Test
@@ -99,7 +105,7 @@ class ApiTest {
     }
 
     private fun apiTest(block: suspend ApplicationTestBuilder.(HttpClient) -> Unit) = testApplication {
-        application { api(service) }
+        application { api(service, mockk(), adminPassword = null) }
         block(createClient { install(ContentNegotiation) { json() } })
     }
 }

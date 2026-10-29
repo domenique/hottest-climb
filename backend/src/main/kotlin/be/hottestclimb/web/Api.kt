@@ -2,9 +2,11 @@ package be.hottestclimb.web
 
 import be.hottestclimb.domain.ClimbError
 import be.hottestclimb.domain.ClimbService
+import be.hottestclimb.domain.EntryAdmin
 import be.hottestclimb.domain.InvalidCredentials
 import be.hottestclimb.domain.InvalidInput
 import be.hottestclimb.domain.NameTaken
+import be.hottestclimb.domain.NotFound
 import be.hottestclimb.domain.TooManyAttempts
 import io.ktor.http.HttpStatusCode
 import io.ktor.serialization.kotlinx.json.json
@@ -26,7 +28,9 @@ import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.withContext
 import kotlin.time.Duration.Companion.minutes
 
-fun Application.api(service: ClimbService) {
+// A blank or missing admin password disables the admin API entirely.
+fun Application.api(service: ClimbService, admin: EntryAdmin, adminPassword: String?) {
+    val adminEnabled = !adminPassword.isNullOrBlank()
     install(ContentNegotiation) { json() }
     install(StatusPages) {
         exception<ClimbError> { call, error ->
@@ -35,6 +39,7 @@ fun Application.api(service: ClimbService) {
                 is InvalidInput -> HttpStatusCode.BadRequest
                 is InvalidCredentials -> HttpStatusCode.Unauthorized
                 is TooManyAttempts -> HttpStatusCode.TooManyRequests
+                is NotFound -> HttpStatusCode.NotFound
             }
             call.respond(status, ErrorResponse(error.message!!))
         }
@@ -46,6 +51,7 @@ fun Application.api(service: ClimbService) {
     install(RateLimit) {
         register { rateLimiter(limit = 300, refillPeriod = 1.minutes) }
     }
+    if (adminEnabled) installAdminAuth(adminPassword!!)
 
     routing {
         rateLimit {
@@ -66,6 +72,7 @@ fun Application.api(service: ClimbService) {
                     val board = withContext(Dispatchers.IO) { service.leaderboard() }
                     call.respond(board.toResponse())
                 }
+                adminRoutes(admin, adminEnabled)
             }
         }
         singlePageApplication {

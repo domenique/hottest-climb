@@ -51,7 +51,7 @@ async function submit() {
       const result = await api.logClimb(name.value, pin.value, meters.value ?? 0)
       remember(result.name)
       meters.value = null
-      success.value = `Top! Je staat nu op ${result.total.toLocaleString('nl-BE')} meter.`
+      success.value = `Top! Je staat nu op ${result.total.toLocaleString('nl-BE')} meter. Vergeet je € 5 niet te betalen aan de bar.`
     }
   } catch (e) {
     error.value = e instanceof ApiError ? e.message : 'Geen verbinding. Probeer opnieuw.'
@@ -65,9 +65,9 @@ async function submit() {
   <main class="min-h-dvh bg-night-900 px-4 py-10 text-ember-50">
     <div class="mx-auto max-w-md">
       <h1 class="text-4xl font-black tracking-tight">
-        Hottest <span class="text-ember-500">Climb</span>
+        Klimmen voor <span class="text-ember-500">de warmste week</span>
       </h1>
-      <p class="mt-2 text-ember-50/70">Elke meter telt voor De Warmste Week en het kankeronderzoek.</p>
+      <p class="mt-2 text-ember-50/70">Elke meter telt! Laten we samen top van de K2 bereiken!</p>
 
       <div class="mt-8 grid grid-cols-2 rounded-xl bg-night-800 p-1 text-sm font-semibold">
         <button
@@ -122,6 +122,18 @@ async function submit() {
             class="mt-1 w-full rounded-lg border border-night-700 bg-night-800 px-4 py-3 text-3xl font-bold outline-none focus:border-ember-500"
           />
         </label>
+
+        <p
+          v-if="mode === 'log'"
+          role="note"
+          class="flex gap-3 rounded-lg border border-amber-400/40 bg-amber-400/10 px-4 py-3 text-sm text-amber-200"
+        >
+          <span aria-hidden="true">⚠️</span>
+          <span>
+            Elke ingave kost <strong>€ 5</strong>, die gaan naar De Warmste Week.
+            Betaal je ingave aan de <strong>bar</strong>.
+          </span>
+        </p>
 
         <button
           type="submit"

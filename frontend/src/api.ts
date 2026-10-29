@@ -8,6 +8,8 @@ export interface Leaderboard {
   rows: LeaderboardRow[]
   grandTotal: number
   climberCount: number
+  raisedEuros: number
+  pendingEuros: number
 }
 
 export class ApiError extends Error {

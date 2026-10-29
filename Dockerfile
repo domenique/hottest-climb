@@ -23,5 +23,7 @@ RUN useradd --system --no-create-home app
 USER app
 WORKDIR /app
 COPY --from=backend /app/backend/build/libs/hottest-climb-all.jar app.jar
+# Blank disables /admin; the "admin" development default must never reach a deployment.
+ENV ADMIN_PASSWORD=""
 EXPOSE 8080
 ENTRYPOINT ["java", "-XX:MaxRAMPercentage=75", "-jar", "app.jar"]

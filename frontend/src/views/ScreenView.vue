@@ -6,7 +6,7 @@ import JoinQr from '../components/JoinQr.vue'
 import ScoreRow from '../components/ScoreRow.vue'
 
 const POLL_MS = 10_000
-const EVEREST_METERS = 8849
+const K2_METERS = 8611
 
 const board = ref<Leaderboard | null>(null)
 const stale = ref(false)
@@ -28,8 +28,10 @@ onMounted(() => {
 })
 onUnmounted(() => clearInterval(timer))
 
-const everests = computed(() => ((board.value?.grandTotal ?? 0) / EVEREST_METERS).toFixed(1))
+const k2s = computed(() => ((board.value?.grandTotal ?? 0) / K2_METERS).toFixed(1))
 const fmt = (n: number) => n.toLocaleString('nl-BE')
+const euros = (n: number) =>
+  n.toLocaleString('nl-BE', { style: 'currency', currency: 'EUR', maximumFractionDigits: 0 })
 
 // Tied climbers share a row, so these are the top three places.
 const PINNED = 3
@@ -41,12 +43,9 @@ const rest = computed(() => board.value?.rows.slice(PINNED) ?? [])
   <main class="[--u:min(1vh,0.5625vw)] flex h-dvh flex-col gap-[calc(3*var(--u))] overflow-hidden bg-night-900 p-[calc(4*var(--u))] text-ember-50">
     <header class="flex items-end justify-between">
       <h1 class="text-[calc(6*var(--u))] leading-none font-black tracking-tight">
-        Samen naar de <span class="text-ember-500">Everest</span>
+        Samen naar de top van de K2 voor <span class="text-ember-500">de warmste week</span>
       </h1>
-      <p class="text-[calc(2.2*var(--u))] text-ember-50/60">
-        voor De Warmste Week
-        <span v-if="stale" class="ml-3 text-red-400">● offline</span>
-      </p>
+        <span v-if="stale" class="ml-3 text-red-400 text-[calc(2.2*var(--u))]">● offline</span>
     </header>
 
     <section
@@ -54,11 +53,19 @@ const rest = computed(() => board.value?.rows.slice(PINNED) ?? [])
     >
       <div>
         <p class="text-[calc(2.4*var(--u))] font-semibold uppercase tracking-widest">Samen geklommen</p>
-        <p class="text-[calc(12*var(--u))] leading-none font-black tabular-nums">
+        <p class="text-[calc(10*var(--u))] leading-none font-black tabular-nums">
           {{ fmt(board?.grandTotal ?? 0) }}<span class="text-[calc(5*var(--u))]"> m</span>
         </p>
         <p class="mt-[calc(1*var(--u))] text-[calc(2.4*var(--u))] font-semibold">
-          {{ board?.climberCount ?? 0 }} klimmers · {{ everests }}× de Mount Everest
+          {{ board?.climberCount ?? 0 }} klimmers · {{ k2s }}× de K2
+        </p>
+      </div>
+      <div class="border-l-2 border-night-900/25 pl-[calc(4*var(--u))]">
+        <p class="text-[calc(2.4*var(--u))] font-semibold uppercase tracking-widest">Opgehaald</p>
+        <p class="text-[calc(10*var(--u))] leading-none font-black tabular-nums">{{ euros(board?.raisedEuros ?? 0) }}</p>
+        <p class="mt-[calc(1*var(--u))] text-[calc(2.4*var(--u))] font-semibold">
+          <template v-if="board?.pendingEuros">+ {{ euros(board.pendingEuros) }} nog te betalen aan de bar</template>
+          <template v-else>€ 5 per beklimming</template>
         </p>
       </div>
       <JoinQr />

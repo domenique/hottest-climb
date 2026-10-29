@@ -4,6 +4,7 @@ Climbers log the meters they climb during De Warmste Week; a leaderboard runs on
 
 - `/` — register (name + self-chosen 4–6 digit pin) or add meters. No email, no personal data.
 - `/scherm` — bar monitor leaderboard, polls every 10 seconds.
+- `/admin` — staff only: edit or delete entries, mark them paid, reset a climber's pin, delete a climber.
 
 ## Development
 
@@ -48,6 +49,10 @@ DATABASE_PASSWORD=${{Postgres.PGPASSWORD}}
 ```
 
 Run a single instance: the wrong-pin lockout is kept in memory.
+
+Locally `/admin` uses the password `admin` unless `ADMIN_PASSWORD` is set. The Docker image blanks it, so a
+deployment has `/admin` disabled until you set `ADMIN_PASSWORD`; without it the admin API answers 404. Use a long random password: it is
+the only thing guarding the admin API. Deleting a climber also deletes all of their entries.
 
 The bar screen shows a QR code to the registration page. It points at the screen's own origin, which is
 wrong if the monitor opens the app via `localhost`; build with the address phones should use instead:

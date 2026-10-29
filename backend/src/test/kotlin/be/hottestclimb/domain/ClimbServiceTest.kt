@@ -132,6 +132,7 @@ class ClimbServiceTest {
             ClimberTotal("Chris", 300),
             ClimberTotal("Dirk", 80),
         )
+        every { entries.count(paid = any()) } returns 0
 
         val board = service.leaderboard()
 
@@ -142,6 +143,18 @@ class ClimbServiceTest {
         )
         board.grandTotal shouldBe 1130
         board.climberCount shouldBe 4
+    }
+
+    @Test
+    fun `only paid entries count as raised, unpaid ones as still to be paid at 5 euro each`() {
+        every { entries.totals() } returns emptyList()
+        every { entries.count(paid = true) } returns 24
+        every { entries.count(paid = false) } returns 5
+
+        val board = service.leaderboard()
+
+        board.raisedEuros shouldBe 120
+        board.pendingEuros shouldBe 25
     }
 }
 

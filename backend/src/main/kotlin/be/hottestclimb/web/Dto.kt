@@ -19,7 +19,13 @@ data class LogClimbResponse(val name: String, val total: Int)
 data class LeaderboardRowResponse(val rank: Int, val names: List<String>, val meters: Int)
 
 @Serializable
-data class LeaderboardResponse(val rows: List<LeaderboardRowResponse>, val grandTotal: Int, val climberCount: Int)
+data class LeaderboardResponse(
+    val rows: List<LeaderboardRowResponse>,
+    val grandTotal: Int,
+    val climberCount: Int,
+    val raisedEuros: Int,
+    val pendingEuros: Int,
+)
 
 @Serializable
 data class ErrorResponse(val error: String)
@@ -28,4 +34,6 @@ fun Leaderboard.toResponse() = LeaderboardResponse(
     rows = rows.map { LeaderboardRowResponse(it.rank, it.names, it.meters) },
     grandTotal = grandTotal,
     climberCount = climberCount,
+    raisedEuros = raisedEuros,
+    pendingEuros = pendingEuros,
 )

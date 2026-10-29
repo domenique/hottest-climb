@@ -11,3 +11,8 @@ database:
   # Only needed when the url carries no credentials.
   user: "$?DATABASE_USER"
   password: "$?DATABASE_PASSWORD"
+
+admin:
+  # "admin" for local development only. The Docker image sets ADMIN_PASSWORD to empty,
+  # which disables the admin API until a real password is configured.
+  password: "$ADMIN_PASSWORD:admin"
