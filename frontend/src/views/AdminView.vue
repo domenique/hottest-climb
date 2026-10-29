@@ -100,17 +100,17 @@ const meterChanged = (entry: AdminEntry) =>
   meterDrafts.value[entry.id] !== undefined && meterDrafts.value[entry.id] !== entry.meters
 
 const button = 'rounded-lg px-3 py-1.5 text-sm font-semibold transition disabled:opacity-50'
-const input = 'rounded-lg border border-night-700 bg-night-900 px-3 py-1.5 outline-none focus:border-ember-500'
+const input = 'rounded-lg border border-night-700 bg-night-900 px-3 py-1.5 outline-none focus:border-accent-500'
 </script>
 
 <template>
-  <main class="min-h-dvh bg-night-900 px-4 py-8 text-ember-50">
+  <main class="min-h-dvh bg-night-900 px-4 py-8 text-accent-50">
     <div class="mx-auto max-w-4xl">
       <header class="flex flex-wrap items-center justify-between gap-4">
         <h1 class="text-3xl font-black tracking-tight">
           Admin
         </h1>
-        <button v-if="loggedIn" type="button" :class="[button, 'bg-night-800 text-ember-50/80']" @click="signOut">
+        <button v-if="loggedIn" type="button" :class="[button, 'bg-night-800 text-accent-50/80']" @click="signOut">
           Afmelden
         </button>
       </header>
@@ -119,19 +119,19 @@ const input = 'rounded-lg border border-night-700 bg-night-900 px-3 py-1.5 outli
 
       <form v-if="!loggedIn" class="mt-8 max-w-sm space-y-4" @submit.prevent="submitLogin">
         <label class="block">
-          <span class="text-sm text-ember-50/70">Admin-wachtwoord</span>
+          <span class="text-sm text-accent-50/70">Admin-wachtwoord</span>
           <input
             v-model="password"
             required
             type="password"
             autocomplete="current-password"
-            class="mt-1 w-full rounded-lg border border-night-700 bg-night-800 px-4 py-3 text-lg outline-none focus:border-ember-500"
+            class="mt-1 w-full rounded-lg border border-night-700 bg-night-800 px-4 py-3 text-lg outline-none focus:border-accent-500"
           />
         </label>
         <button
           type="submit"
           :disabled="busy"
-          class="w-full rounded-xl bg-ember-500 py-3 font-bold text-night-900 hover:bg-ember-400 disabled:opacity-50"
+          class="w-full rounded-xl bg-accent-500 py-3 font-bold text-night-900 hover:bg-accent-400 disabled:opacity-50"
         >
           Aanmelden
         </button>
@@ -141,15 +141,15 @@ const input = 'rounded-lg border border-night-700 bg-night-900 px-3 py-1.5 outli
         <section class="mt-6 grid grid-cols-3 gap-3 text-center">
           <div class="rounded-xl bg-night-800 p-4">
             <p class="text-2xl font-black tabular-nums">{{ entries.length }}</p>
-            <p class="text-xs text-ember-50/60 uppercase">ingaves</p>
+            <p class="text-xs text-accent-50/60 uppercase">ingaves</p>
           </div>
           <div class="rounded-xl bg-night-800 p-4">
             <p class="text-2xl font-black tabular-nums text-amber-300">{{ unpaidCount }}</p>
-            <p class="text-xs text-ember-50/60 uppercase">onbetaald</p>
+            <p class="text-xs text-accent-50/60 uppercase">onbetaald</p>
           </div>
           <div class="rounded-xl bg-night-800 p-4">
             <p class="text-2xl font-black tabular-nums text-amber-300">{{ euros(unpaidCount * EUROS_PER_ENTRY) }}</p>
-            <p class="text-xs text-ember-50/60 uppercase">nog te innen</p>
+            <p class="text-xs text-accent-50/60 uppercase">nog te innen</p>
           </div>
         </section>
 
@@ -160,7 +160,7 @@ const input = 'rounded-lg border border-night-700 bg-night-900 px-3 py-1.5 outli
               :key="option"
               type="button"
               class="rounded-lg px-4 py-1.5 transition"
-              :class="tab === option ? 'bg-ember-500 text-night-900' : 'text-ember-50/70'"
+              :class="tab === option ? 'bg-accent-500 text-night-900' : 'text-accent-50/70'"
               @click="tab = option"
             >
               {{ option === 'entries' ? 'Ingaves' : 'Klimmers' }}
@@ -168,7 +168,7 @@ const input = 'rounded-lg border border-night-700 bg-night-900 px-3 py-1.5 outli
           </div>
           <input v-model="search" type="search" placeholder="Zoek op naam" :class="[input, 'min-w-0 flex-1']" />
           <label v-if="tab === 'entries'" class="flex items-center gap-2 text-sm">
-            <input v-model="onlyUnpaid" type="checkbox" class="accent-ember-500" />
+            <input v-model="onlyUnpaid" type="checkbox" class="accent-accent-500" />
             Alleen onbetaald
           </label>
         </div>
@@ -181,7 +181,7 @@ const input = 'rounded-lg border border-night-700 bg-night-900 px-3 py-1.5 outli
           >
             <div class="min-w-0 flex-1">
               <p class="truncate font-bold">{{ entry.climberName }}</p>
-              <p class="text-xs text-ember-50/60">{{ when(entry.loggedAt) }}</p>
+              <p class="text-xs text-accent-50/60">{{ when(entry.loggedAt) }}</p>
             </div>
 
             <form class="flex items-center gap-2" @submit.prevent="saveMeters(entry)">
@@ -195,8 +195,8 @@ const input = 'rounded-lg border border-night-700 bg-night-900 px-3 py-1.5 outli
                 :class="[input, 'w-24 text-right tabular-nums']"
                 @input="meterDrafts[entry.id] = Number(($event.target as HTMLInputElement).value)"
               />
-              <span class="text-sm text-ember-50/60">m</span>
-              <button v-if="meterChanged(entry)" type="submit" :disabled="busy" :class="[button, 'bg-ember-500 text-night-900']">
+              <span class="text-sm text-accent-50/60">m</span>
+              <button v-if="meterChanged(entry)" type="submit" :disabled="busy" :class="[button, 'bg-accent-500 text-night-900']">
                 Opslaan
               </button>
             </form>
@@ -222,7 +222,7 @@ const input = 'rounded-lg border border-night-700 bg-night-900 px-3 py-1.5 outli
               Verwijderen
             </button>
           </li>
-          <li v-if="visibleEntries.length === 0" class="py-8 text-center text-ember-50/60">
+          <li v-if="visibleEntries.length === 0" class="py-8 text-center text-accent-50/60">
             {{ onlyUnpaid && !search ? 'Alles is betaald.' : 'Geen ingaves.' }}
           </li>
         </ul>
@@ -235,7 +235,7 @@ const input = 'rounded-lg border border-night-700 bg-night-900 px-3 py-1.5 outli
           >
             <div class="min-w-0 flex-1">
               <p class="truncate font-bold">{{ climber.name }}</p>
-              <p class="text-xs text-ember-50/60">{{ climber.entryCount }} ingaves · {{ climber.meters }} m</p>
+              <p class="text-xs text-accent-50/60">{{ climber.entryCount }} ingaves · {{ climber.meters }} m</p>
             </div>
 
             <form
@@ -252,7 +252,7 @@ const input = 'rounded-lg border border-night-700 bg-night-900 px-3 py-1.5 outli
                 aria-label="Nieuwe pincode"
                 :class="[input, 'w-32 tracking-widest']"
               />
-              <button type="submit" :disabled="busy" :class="[button, 'bg-ember-500 text-night-900']">Opslaan</button>
+              <button type="submit" :disabled="busy" :class="[button, 'bg-accent-500 text-night-900']">Opslaan</button>
               <button type="button" :class="[button, 'bg-night-700']" @click="delete pinDrafts[climber.id]">Annuleer</button>
             </form>
             <button v-else type="button" :class="[button, 'bg-night-700']" @click="pinDrafts[climber.id] = ''">
@@ -270,7 +270,7 @@ const input = 'rounded-lg border border-night-700 bg-night-900 px-3 py-1.5 outli
               Verwijderen
             </button>
           </li>
-          <li v-if="visibleClimbers.length === 0" class="py-8 text-center text-ember-50/60">Geen klimmers.</li>
+          <li v-if="visibleClimbers.length === 0" class="py-8 text-center text-accent-50/60">Geen klimmers.</li>
         </ul>
       </template>
     </div>

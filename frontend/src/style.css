@@ -1,11 +1,12 @@
 @import "tailwindcss";
 
 @theme {
-  --color-ember-50: #fff4ed;
-  --color-ember-400: #ff8a4c;
-  --color-ember-500: #ff6a1f;
-  --color-ember-600: #e84e0f;
-  --color-night-900: #120c0a;
-  --color-night-800: #1e1512;
-  --color-night-700: #2c201b;
+  /* Klimzaal Wallstreet green */
+  --color-accent-50: #f4fbef;
+  --color-accent-400: #b0e48f;
+  --color-accent-500: #96d86c;
+  --color-accent-600: #78bf4b;
+  --color-night-900: #0e110d;
+  --color-night-800: #171c15;
+  --color-night-700: #232a20;
 }

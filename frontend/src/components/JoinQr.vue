@@ -8,7 +8,7 @@ const displayUrl = joinUrl.replace(/^https?:\/\//, '').replace(/\/$/, '')
 const svg = ref('')
 
 onMounted(async () => {
-  svg.value = await QRCode.toString(joinUrl, { margin: 1, color: { dark: '#120c0a', light: '#ffffff' } })
+  svg.value = await QRCode.toString(joinUrl, { margin: 1, color: { dark: '#0e110d', light: '#ffffff' } })
 })
 </script>
 

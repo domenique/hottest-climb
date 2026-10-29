@@ -40,16 +40,16 @@ const rest = computed(() => board.value?.rows.slice(PINNED) ?? [])
 </script>
 
 <template>
-  <main class="[--u:min(1vh,0.5625vw)] flex h-dvh flex-col gap-[calc(3*var(--u))] overflow-hidden bg-night-900 p-[calc(4*var(--u))] text-ember-50">
+  <main class="[--u:min(1vh,0.5625vw)] flex h-dvh flex-col gap-[calc(3*var(--u))] overflow-hidden bg-night-900 p-[calc(4*var(--u))] text-accent-50">
     <header class="flex items-end justify-between">
       <h1 class="text-[calc(6*var(--u))] leading-none font-black tracking-tight">
-        Samen naar de top van de K2 voor <span class="text-ember-500">de warmste week</span>
+        Samen naar de top van de K2 voor <span class="text-accent-500">de warmste week</span>
       </h1>
         <span v-if="stale" class="ml-3 text-red-400 text-[calc(2.2*var(--u))]">● offline</span>
     </header>
 
     <section
-      class="flex items-center justify-between gap-[calc(4*var(--u))] rounded-3xl bg-gradient-to-r from-ember-600 to-ember-400 px-[calc(4*var(--u))] py-[calc(3*var(--u))] text-night-900"
+      class="flex items-center justify-between gap-[calc(4*var(--u))] rounded-3xl bg-gradient-to-r from-accent-600 to-accent-400 px-[calc(4*var(--u))] py-[calc(3*var(--u))] text-night-900"
     >
       <div>
         <p class="text-[calc(2.4*var(--u))] font-semibold uppercase tracking-widest">Samen geklommen</p>
@@ -71,7 +71,7 @@ const rest = computed(() => board.value?.rows.slice(PINNED) ?? [])
       <JoinQr />
     </section>
 
-    <p v-if="board && board.rows.length === 0" class="m-auto text-[calc(4*var(--u))] text-ember-50/60">
+    <p v-if="board && board.rows.length === 0" class="m-auto text-[calc(4*var(--u))] text-accent-50/60">
       Nog niemand geklommen. Wie zet de eerste meters?
     </p>
     <template v-else>

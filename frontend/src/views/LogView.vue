@@ -62,12 +62,12 @@ async function submit() {
 </script>
 
 <template>
-  <main class="min-h-dvh bg-night-900 px-4 py-10 text-ember-50">
+  <main class="min-h-dvh bg-night-900 px-4 py-10 text-accent-50">
     <div class="mx-auto max-w-md">
       <h1 class="text-4xl font-black tracking-tight">
-        Klimmen voor <span class="text-ember-500">de warmste week</span>
+        Klimmen voor <span class="text-accent-500">de warmste week</span>
       </h1>
-      <p class="mt-2 text-ember-50/70">Elke meter telt! Laten we samen de top van de K2 bereiken!</p>
+      <p class="mt-2 text-accent-50/70">Elke meter telt! Laten we samen de top van de K2 bereiken!</p>
 
       <div class="mt-8 grid grid-cols-2 rounded-xl bg-night-800 p-1 text-sm font-semibold">
         <button
@@ -75,7 +75,7 @@ async function submit() {
           :key="option"
           type="button"
           class="rounded-lg py-2 transition"
-          :class="mode === option ? 'bg-ember-500 text-night-900' : 'text-ember-50/70'"
+          :class="mode === option ? 'bg-accent-500 text-night-900' : 'text-accent-50/70'"
           @click="switchMode(option)"
         >
           {{ option === 'log' ? 'Meters invullen' : 'Nieuwe klimmer' }}
@@ -84,19 +84,19 @@ async function submit() {
 
       <form class="mt-6 space-y-4" @submit.prevent="submit">
         <label class="block">
-          <span class="text-sm text-ember-50/70">Naam</span>
+          <span class="text-sm text-accent-50/70">Naam</span>
           <input
             v-model="name"
             required
             minlength="2"
             maxlength="30"
             autocomplete="username"
-            class="mt-1 w-full rounded-lg border border-night-700 bg-night-800 px-4 py-3 text-lg outline-none focus:border-ember-500"
+            class="mt-1 w-full rounded-lg border border-night-700 bg-night-800 px-4 py-3 text-lg outline-none focus:border-accent-500"
           />
         </label>
 
         <label class="block">
-          <span class="text-sm text-ember-50/70">
+          <span class="text-sm text-accent-50/70">
             Pincode {{ mode === 'register' ? '(kies 4–6 cijfers, onthoud ze goed)' : '' }}
           </span>
           <input
@@ -106,12 +106,12 @@ async function submit() {
             inputmode="numeric"
             pattern="\d{4,6}"
             :autocomplete="mode === 'register' ? 'new-password' : 'current-password'"
-            class="mt-1 w-full rounded-lg border border-night-700 bg-night-800 px-4 py-3 text-lg tracking-widest outline-none focus:border-ember-500"
+            class="mt-1 w-full rounded-lg border border-night-700 bg-night-800 px-4 py-3 text-lg tracking-widest outline-none focus:border-accent-500"
           />
         </label>
 
         <label v-if="mode === 'log'" class="block">
-          <span class="text-sm text-ember-50/70">Meters geklommen</span>
+          <span class="text-sm text-accent-50/70">Meters geklommen</span>
           <input
             v-model.number="meters"
             required
@@ -119,7 +119,7 @@ async function submit() {
             min="1"
             max="500"
             inputmode="numeric"
-            class="mt-1 w-full rounded-lg border border-night-700 bg-night-800 px-4 py-3 text-3xl font-bold outline-none focus:border-ember-500"
+            class="mt-1 w-full rounded-lg border border-night-700 bg-night-800 px-4 py-3 text-3xl font-bold outline-none focus:border-accent-500"
           />
         </label>
 
@@ -138,13 +138,13 @@ async function submit() {
         <button
           type="submit"
           :disabled="busy"
-          class="w-full rounded-xl bg-ember-500 py-4 text-lg font-bold text-night-900 transition hover:bg-ember-400 disabled:opacity-50"
+          class="w-full rounded-xl bg-accent-500 py-4 text-lg font-bold text-night-900 transition hover:bg-accent-400 disabled:opacity-50"
         >
           {{ mode === 'log' ? 'Meters toevoegen' : 'Registreren' }}
         </button>
 
         <p v-if="error" role="alert" class="rounded-lg bg-red-500/15 px-4 py-3 text-red-300">{{ error }}</p>
-        <p v-if="success" role="status" class="rounded-lg bg-ember-500/15 px-4 py-3 text-ember-400">{{ success }}</p>
+        <p v-if="success" role="status" class="rounded-lg bg-accent-500/15 px-4 py-3 text-accent-400">{{ success }}</p>
       </form>
     </div>
   </main>

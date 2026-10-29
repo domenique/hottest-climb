@@ -14,10 +14,10 @@ const joined = (names: string[]) =>
     class="flex shrink-0 items-center rounded-2xl bg-night-800"
     :class="[
       compact ? 'h-[calc(5.8*var(--u))] gap-[calc(2.5*var(--u))] px-[calc(2.5*var(--u))] text-[calc(2.8*var(--u))]' : 'h-[calc(8.5*var(--u))] gap-[calc(3*var(--u))] px-[calc(3*var(--u))] text-[calc(4*var(--u))]',
-      { 'ring-2 ring-ember-500 ring-inset': row.rank === 1 },
+      { 'ring-2 ring-accent-500 ring-inset': row.rank === 1 },
     ]"
   >
-    <span class="text-center font-black text-ember-500 tabular-nums" :class="compact ? 'w-[calc(5*var(--u))]' : 'w-[calc(7*var(--u))]'">
+    <span class="text-center font-black text-accent-500 tabular-nums" :class="compact ? 'w-[calc(5*var(--u))]' : 'w-[calc(7*var(--u))]'">
       {{ medal(row.rank) }}
     </span>
     <span class="flex-1 truncate font-bold" :title="joined(row.names)">{{ joined(row.names) }}</span>
